@@ -219,6 +219,16 @@ public class Operations {
    * @param records List of Record with payments
    * @return Maximum date one day after last day from List of records
    */
-
+  public static Date getMaxDate(List<Record> records) {
+    Date maxDate = records.stream()
+        .map(Record::getDate)
+        .max(Date::compareTo)
+        .get();
+    Calendar calendar = new GregorianCalendar();
+    calendar.setTime(maxDate);
+    calendar.add(Calendar.DATE, 1);
+    maxDate = calendar.getTime();
+    return maxDate;
+  }
 
 }
