@@ -1,12 +1,6 @@
 package classes;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +21,7 @@ public class IOCrypto {
     StringBuilder tempString = new StringBuilder();
     int j = 0;
     for (Record items : records) {
-      String line = recordsToCryptoString(items);
+      String line = recordToCryptoString(items);
       for (int i = 0; i < line.length(); i++) {
         int code = (int) line.charAt(i) + CRYPTO;
         tempString.append((char) code);
@@ -39,23 +33,21 @@ public class IOCrypto {
   }
 
   /**
-   * Methods decrypt file, parse it and add records to ListRecord. Use methods
-   * parseRecordFromString().
+   * Methods decrypt file, parse it and add records to ListRecord.
+   * Use methods parseRecordFromString().
    * <p>
    * Check empty file.
    *
    * @param cryptoFile - File for decrypts.
    * @throws IOException throw.
    */
-  public static void makeUnCrypt(File cryptoFile, List<Record> records)
-      throws IOException, ParseException {
+  public static void makeUnCrypt(File cryptoFile, List<Record> records) throws IOException, ParseException {
     if (cryptoFile.length() == 0) {
       System.out.println("Empty file");
     } else {
       try {
         BufferedReader inputFileReader = new BufferedReader(new FileReader(cryptoFile));
-        for (String row = inputFileReader.readLine(); row != null;
-            row = inputFileReader.readLine()) {
+        for (String row = inputFileReader.readLine(); row != null; row = inputFileReader.readLine()) {
           StringBuilder tempString = new StringBuilder();
           for (int i = 0; i < row.length(); i++) {
             int code = (int) row.charAt(i) - CRYPTO;
@@ -67,8 +59,7 @@ public class IOCrypto {
       } catch (FileNotFoundException f) {
         cryptoFile = new File("src/res/crypto.txt");
         BufferedReader inputFileReader = new BufferedReader(new FileReader(cryptoFile));
-        for (String row = inputFileReader.readLine(); row != null;
-            row = inputFileReader.readLine()) {
+        for (String row = inputFileReader.readLine(); row != null; row = inputFileReader.readLine()) {
           StringBuilder tempString = new StringBuilder();
           for (int i = 0; i < row.length(); i++) {
             int code = (int) row.charAt(i) - CRYPTO;
@@ -81,7 +72,6 @@ public class IOCrypto {
     }
   }
 
-
   /**
    * Parse and add record from String to List Record.
    *
@@ -89,8 +79,7 @@ public class IOCrypto {
    * @param records records for adding.
    * @throws ParseException can throw.
    */
-  public static void parseRecordFromString(String line, List<Record> records)
-      throws ParseException {
+  public static void parseRecordFromString(String line, List<Record> records) throws ParseException {
     String[] temp = line.split(SEP);
     Record record = new Record();
     record.setId(Integer.parseInt(temp[0]));
@@ -102,7 +91,6 @@ public class IOCrypto {
     records.add(record);
   }
 
-
   /**
    * Make record to Crypto String
    *
@@ -110,8 +98,7 @@ public class IOCrypto {
    * @return parsed String from Record
    */
   public static String recordToCryptoString(Record record) {
-    return record.getId() + "," + Operations.dateToString(record.getDate()) + "," + record.getUser()
-        + "," + record.getAmount() +
+    return record.getId() + "," + Operations.dateToString(record.getDate()) + "," + record.getUser() + "," + record.getAmount() +
         "," + record.getCategory() + "," + record.getComment();
   }
 
@@ -125,6 +112,23 @@ public class IOCrypto {
   public static void makeNewOutputCryptoFile(List<Record> records, List<String> list) throws IOException {
     makeCrypto(records);
     makeOutputCryptoFile(list);
+  }
+
+  /**
+   * DON'T DELETE
+   * Unencrypted file is decomposed
+   *
+   * @param fileName - Unencrypted file for parsing
+   * @param records  - list records for adding
+   * @throws IOException    throws
+   * @throws ParseException throws
+   */
+  public static void parseFileUnencrypted(File fileName, List<Record> records) throws IOException, ParseException {
+    //list.clear();
+    BufferedReader inputFileReader = new BufferedReader(new FileReader(fileName));
+    for (String row = inputFileReader.readLine(); row != null; row = inputFileReader.readLine()) {
+      parseRecordFromString(row, records);
+    }
   }
 
   /**
