@@ -1,8 +1,22 @@
 package classes;
 
 import java.awt.AWTException;
+import java.awt.PageAttributes;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.sql.SQLOutput;
+import java.text.ParseException;
+import java.util.List;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class Menu {
 
@@ -53,4 +67,43 @@ public class Menu {
     r.keyRelease(KeyEvent.VK_CONTROL);
     r.keyRelease(KeyEvent.VK_Q);
   }
+
+  public static void recordsMAnu(List<Record> records, List<Category> categories)
+      throws IOException, ParseException, AWTException, UnsupportedAudioFileException, LineUnavailableException {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    while (true) {
+      System.out.println();
+      System.out.println();
+      System.out.println();
+      System.out.print(Colors.GRAY + "Choose command: " + Colors.RESET);
+      String key = br.readLine();
+      switch (key) {
+        case "1": {
+          soundClick();
+
+        }
+      }
+    }
+  }
+
+  /**
+   * make sound "mouse click"
+   *
+   * @throws UnsupportedAudioFileException File format not valid
+   * @throws IOException                   File input error
+   * @throws LineUnavailableException      line cannot be opened because it is unavailable.
+   * @throws AWTException                  Signals that an Abstract Window Toolkit exception has
+   *                                       occurred.
+   */
+  public static void soundClick()
+      throws UnsupportedAudioFileException, IOException, LineUnavailableException, AWTException {
+    File file = new File("src/classes/1.wav");
+    AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
+    Clip clip = AudioSystem.getClip();
+    clip.open(audioStream);
+    clip.start();
+    clearAll();
+    delaySecond();
+  }
+
 }
