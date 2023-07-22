@@ -1,5 +1,9 @@
 package classes;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
+
 public class Menu {
 
   public static final String LINEOPEN = "┌┈┈┈┈┈┈┰┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┰┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┰┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┰┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┰┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┒";
@@ -35,5 +39,18 @@ public class Menu {
     long start = System.currentTimeMillis();
     while (start >= System.currentTimeMillis() - delay)
       ;
+  }
+
+  /**
+   * clear console
+   *
+   * @throws AWTException
+   */
+  public static void clearAll() throws AWTException {
+    Robot r = new Robot();
+    r.keyPress(KeyEvent.VK_CONTROL);
+    r.keyPress(KeyEvent.VK_Q);
+    r.keyRelease(KeyEvent.VK_CONTROL);
+    r.keyRelease(KeyEvent.VK_Q);
   }
 }
