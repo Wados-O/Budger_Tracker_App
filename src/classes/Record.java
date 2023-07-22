@@ -87,4 +87,22 @@ public class Record {
     }
     return max;
   }
+
+  /**
+   * Override method th String
+   *
+   * @return string
+   */
+  @Override
+  public String toString() {
+    return "Record{" +
+        "id=" + id +
+        ", date=" + Operations.dateToString(date) +
+        ", category='" + category + '\'' +
+        ", user='" + user + '\'' +
+        ", amount=" + amount +
+        ", comment=" + comment + '\'' +
+        '}';
+  }
+
 }
