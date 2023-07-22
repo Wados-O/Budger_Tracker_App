@@ -42,4 +42,23 @@ public class Operations {
         .sum();
   }
 
+
+  /**
+   * Calculate Expenses in period
+   *
+   * @param records   List of Record with payments
+   * @param dateBegin Begin of payments period minus one day
+   * @param dateEnd   End of payments period plus one day
+   * @return Sum of expenses in this period
+   */
+
+
+  public static double calcExpensesPeriod(List<Record> records, Date dateBegin, Date dateEnd) {
+    return records.stream()
+        .filter(x -> x.getDate().after(dateBegin))
+        .filter(x -> x.getDate().before(dateEnd))
+        .filter(x -> x.getAmount() < 0)
+        .mapToDouble(Record::getAmount)
+        .sum();
+  }
 }
