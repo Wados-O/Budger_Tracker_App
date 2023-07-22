@@ -10,7 +10,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.SQLOutput;
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -106,4 +110,19 @@ public class Menu {
     delaySecond();
   }
 
+  public static void addRecord(List<Record> records,List<Category> categories)
+      throws IOException,ParseException,UnsupportedAudioFileException,LineUnavailableException,AWTException{
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    DateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
+    Record record = new Record();
+
+    Calendar today = Calendar.getInstance();
+    Date currentDate = today.getTime();
+    Date stDate = currentDate;
+    String categoryName = "Income";
+    boolean income = false;
+    int multiply = 1;
+    int id = Record.getNewRecordId(records);
+
+  }
 }

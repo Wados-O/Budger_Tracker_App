@@ -61,4 +61,24 @@ public class Operations {
         .mapToDouble(Record::getAmount)
         .sum();
   }
+
+  /**
+   * Calculate expenses in period by User
+   *
+   * @param records   List of Record with payments
+   * @param user      Username to find their expenses
+   * @param dateBegin Begin of payments period minus one day
+   * @param dateEnd   End of payments period plus one day
+   * @return Sum of expenses by User in this period
+   */
+  public static double expensesByUser(List<Record> records, String user, Date dateBegin,
+      Date dateEnd){
+    return records.stream()
+        .filter(x -> x.getDate().after(dateBegin))
+        .filter(x -> x.getDate().before(dateEnd))
+        .filter(x -> x.getAmount() < 0)
+        .filter(x -> x.getUser().equals(user))
+        .mapToDouble(Record::getAmount)
+        .sum();
+  }
 }
