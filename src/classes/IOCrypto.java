@@ -2,8 +2,10 @@ package classes;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,25 +45,36 @@ public class IOCrypto {
    * @param cryptoFile - File for decrypts.
    * @throws IOException throw.
    */
-  public static void makeUnCrypt(File cryptoFile ,List<Record> records)
-      throws IOException, ParseException{
-    if (cryptoFile.length() ==0){
+  public static void makeUnCrypt(File cryptoFile, List<Record> records) throws IOException, ParseException {
+    if (cryptoFile.length() == 0) {
       System.out.println("Empty file");
-    }else {
-      try{
+    } else {
+      try {
         BufferedReader inputFileReader = new BufferedReader(new FileReader(cryptoFile));
-        for (String row = inputFileReader.readLine(); row!=null;row =inputFileReader.readLine()){
+        for (String row = inputFileReader.readLine(); row != null; row = inputFileReader.readLine()) {
           StringBuilder tempString = new StringBuilder();
           for (int i = 0; i < row.length(); i++) {
-            int code =(int) row.charAt(i) -CRYPTO;
+            int code = (int) row.charAt(i) - CRYPTO;
             tempString.append((char) code);
           }
-          parseRecordFromString();
+          parseRecordFromString(tempString.toString(), records);
         }
+        inputFileReader.close();
+      } catch (FileNotFoundException f) {
+        cryptoFile = new File("src/res/crypto.txt");
+        BufferedReader inputFileReader = new BufferedReader(new FileReader(cryptoFile));
+        for (String row = inputFileReader.readLine(); row != null; row = inputFileReader.readLine()) {
+          StringBuilder tempString = new StringBuilder();
+          for (int i = 0; i < row.length(); i++) {
+            int code = (int) row.charAt(i) - CRYPTO;
+            tempString.append((char) code);
+          }
+          parseRecordFromString(tempString.toString(), records);
+        }
+        inputFileReader.close();
       }
     }
   }
-
 
 
   /**
@@ -84,8 +97,23 @@ public class IOCrypto {
   }
 
 
-  public static String recordsToCryptoString(Record record) {
-
+  /**
+   * Make record to Crypto String
+   *
+   * @param record Records for parsing
+   * @return parsed String from Record
+   */
+  public static String recordToCryptoString(Record record) {
+    return record.getId() + "," + Operations.dateToString(record.getDate()) + "," + record.getUser() + "," + record.getAmount() +
+        "," + record.getCategory() + "," + record.getComment();
   }
+  /**
+   * Method make new Output crypto file
+   *
+   * @param records list of Records
+   * @param list    List of crypto items
+   * @throws IOException can throw
+   */
 
+  
 }
