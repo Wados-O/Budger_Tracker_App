@@ -9,6 +9,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 public class Operations {
@@ -81,4 +82,31 @@ public class Operations {
         .mapToDouble(Record::getAmount)
         .sum();
   }
+  /**
+   * Calculate expenses in period by Category
+   *
+   * @param records   List of Record with payments
+   * @param category  Category to find expenses by it
+   * @param dateBegin Begin of payments period minus one day
+   * @param dateEnd   End of payments period plus one day
+   * @return Sum of expenses by User in this period
+   */
+  public static double expensesByCategory(List<Record> records,String category,Date dateBegin,
+      Date dateEnd){
+    return records.stream()
+        .filter(x -> x.getDate().after(dateBegin))
+        .filter(x -> x.getDate().before(dateEnd))
+        .filter(x -> x.getAmount() < 0)
+        .filter(x -> x.getCategory().equals(category))
+        .mapToDouble(Record::getAmount)
+        .sum();
+  }
+  /**
+   * Calculate expenses in period by Date
+   *
+   * @param records List of Record with payments
+   * @param date    Date of expenses
+   * @return Sum of expenses by User in this Date
+   */
+
 }
