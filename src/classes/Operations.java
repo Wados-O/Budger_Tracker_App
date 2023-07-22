@@ -175,5 +175,25 @@ public class Operations {
     return result;
   }
 
+  /**
+   * Make List of dates one by one between two dates
+   *
+   * @param dateBegin Begin of payments period inclusive
+   * @param dateEnd   End of payments period exclusive
+   * @return List of dates first inclusive, last exclusive
+   */
+  public static List<Date> datesBetween(Date dateBegin, Date dateEnd) {
+    List<Date> dates = new ArrayList<>();
+    Calendar calendar = new GregorianCalendar();
+    calendar.setTime(dateBegin);
+    while (calendar.getTime().before(dateEnd))//dateEnd exclusive!
+    {
+      Date result = calendar.getTime();
+      dates.add(result);
+      calendar.add(Calendar.DATE, 1);
+    }
+    return dates;
+  }
+
 
 }
