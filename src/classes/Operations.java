@@ -195,5 +195,30 @@ public class Operations {
     return dates;
   }
 
+  /**
+   * get Minimum date in records
+   *
+   * @param records List of Record with payments
+   * @return Minimum date one before first day from List of records
+   */
+  public static Date getMinDate(List<Record> records) {
+    Date minDate = records.stream()
+        .map(Record::getDate)
+        .min(Date::compareTo)
+        .get();
+    Calendar calendar = new GregorianCalendar();
+    calendar.setTime(minDate);
+    calendar.add(Calendar.DATE, -1);
+    minDate = calendar.getTime();
+    return minDate;
+  }
+
+  /**
+   * get Maximum date in records
+   *
+   * @param records List of Record with payments
+   * @return Maximum date one day after last day from List of records
+   */
+
 
 }
