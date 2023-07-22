@@ -205,7 +205,7 @@ public class Menu {
 
 
 
-  public static void recordsMAnu(List<Record> records, List<Category> categories)
+  public static void recordsMenu(List<Record> records, List<Category> categories)
       throws IOException, ParseException, AWTException, UnsupportedAudioFileException, LineUnavailableException {
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     while (true) {
@@ -217,7 +217,14 @@ public class Menu {
       switch (key) {
         case "1": {
           soundClick();
-
+          Menu.printHeader();
+          Menu.delaySecond();
+          Output.printList(Operations.sortByID(records));
+          Output.printFinance(records);
+          System.out.println(SHOW_ALL_MENU_ID);
+          System.out.println(SHOW_SYSTEM_MENU_MAIN);
+          Menu.recordsMenu(records, categories);
+          break;
         }
       }
     }

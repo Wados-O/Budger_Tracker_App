@@ -56,6 +56,8 @@ public class Users {
         System.out.println(Colors.YELLOW_BOLD_BRIGHT + "Congratulations, you're logged in! \uD83D\uDC4C" + Colors.RESET);
 
       }
+    }catch (Exception e){
+      System.err.println();
     }
   }
 }
