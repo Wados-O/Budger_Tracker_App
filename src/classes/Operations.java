@@ -109,4 +109,12 @@ public class Operations {
    * @return Sum of expenses by User in this Date
    */
 
+  public static double expensesByDate(List<Record> records, Date date){
+    return records.stream()
+        .filter(x -> x.getDate().equals(date))
+        .filter(x -> x.getAmount() < 0)
+        .mapToDouble(Record::getAmount)
+        .sum();
+  }
+
 }
