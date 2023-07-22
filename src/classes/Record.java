@@ -4,11 +4,10 @@ import java.util.Date;
 import java.util.List;
 
 public class Record {
-
   private int id;
   private Date date;
   private String category;
-  private String user;
+  private String user; // must decide, may be use class Users
   private double amount;
   private String comment;
 
@@ -63,13 +62,17 @@ public class Record {
   public Record() {
   }
 
-  public Record(int id, Date date, String category, String user, double amount, String comment) {
+  public Record(int id) {
+    this.id = id;
+  }
+
+  public Record(int id, Date date, String user, String category, String comment, double amount) {
     this.id = id;
     this.date = date;
-    this.category = category;
     this.user = user;
-    this.amount = amount;
+    this.category = category;
     this.comment = comment;
+    this.amount = amount;
   }
 
   /**
@@ -89,8 +92,7 @@ public class Record {
   }
 
   /**
-   * Override method th String
-   *
+   * Override method to String
    * @return string
    */
   @Override
@@ -101,8 +103,7 @@ public class Record {
         ", category='" + category + '\'' +
         ", user='" + user + '\'' +
         ", amount=" + amount +
-        ", comment=" + comment + '\'' +
+        ", comment='" + comment + '\'' +
         '}';
   }
-
 }
