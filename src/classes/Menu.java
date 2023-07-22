@@ -19,4 +19,10 @@ public class Menu {
    *
    */
 
+  public static void delayMain(){
+    int delay = 2000;
+    long start = System.currentTimeMillis();
+    while (start > System.currentTimeMillis() - delay)
+      ;
+  }
 }
