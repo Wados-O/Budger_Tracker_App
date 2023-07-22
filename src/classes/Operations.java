@@ -161,4 +161,19 @@ public class Operations {
     return result;
   }
 
+  /**
+   * Sort LIst of All Records by Amount
+   *
+   * @param records List of Record with payments
+   * @return new sorted LIst of Records
+   */
+  public static List<Record> sortByAmount(List<Record> records) {
+    List<Record> result;
+    result = records.stream()
+        .sorted(Comparator.comparing(Record::getAmount))
+        .collect(Collectors.toList());
+    return result;
+  }
+
+
 }
