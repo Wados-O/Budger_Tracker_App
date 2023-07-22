@@ -73,7 +73,7 @@ public class Operations {
    * @return Sum of expenses by User in this period
    */
   public static double expensesByUser(List<Record> records, String user, Date dateBegin,
-      Date dateEnd){
+      Date dateEnd) {
     return records.stream()
         .filter(x -> x.getDate().after(dateBegin))
         .filter(x -> x.getDate().before(dateEnd))
@@ -82,6 +82,7 @@ public class Operations {
         .mapToDouble(Record::getAmount)
         .sum();
   }
+
   /**
    * Calculate expenses in period by Category
    *
@@ -91,8 +92,8 @@ public class Operations {
    * @param dateEnd   End of payments period plus one day
    * @return Sum of expenses by User in this period
    */
-  public static double expensesByCategory(List<Record> records,String category,Date dateBegin,
-      Date dateEnd){
+  public static double expensesByCategory(List<Record> records, String category, Date dateBegin,
+      Date dateEnd) {
     return records.stream()
         .filter(x -> x.getDate().after(dateBegin))
         .filter(x -> x.getDate().before(dateEnd))
@@ -101,6 +102,7 @@ public class Operations {
         .mapToDouble(Record::getAmount)
         .sum();
   }
+
   /**
    * Calculate expenses in period by Date
    *
@@ -109,12 +111,54 @@ public class Operations {
    * @return Sum of expenses by User in this Date
    */
 
-  public static double expensesByDate(List<Record> records, Date date){
+  public static double expensesByDate(List<Record> records, Date date) {
     return records.stream()
         .filter(x -> x.getDate().equals(date))
         .filter(x -> x.getAmount() < 0)
         .mapToDouble(Record::getAmount)
         .sum();
+  }
+
+  /**
+   * Sort LIst of All Records by Date
+   *
+   * @param records List of Record with payments
+   * @return new sorted LIst of Records
+   */
+  public static List<Record> sortByDate(List<Record> records) {
+    List<Record> result;
+    result = records.stream()
+        .sorted(Comparator.comparing(Record::getDate))
+        .collect(Collectors.toList());
+    return result;
+  }
+
+  /**
+   * Sort LIst of All Records by User
+   *
+   * @param records List of Record with payments
+   * @return new sorted LIst of Records
+   */
+  public static List<Record> sortByUser(List<Record> records) {
+    List<Record> result;
+    result = records.stream()
+        .sorted(Comparator.comparing(Record::getUser))
+        .collect(Collectors.toList());
+    return result;
+  }
+
+  /**
+   * Sort LIst of All Records by Category
+   *
+   * @param records List of Record with payments
+   * @return new sorted LIst of Records
+   */
+  public static List<Record> sortByCategory(List<Record> records) {
+    List<Record> result;
+    result = records.stream()
+        .sorted(Comparator.comparing(Record::getCategory))
+        .collect(Collectors.toList());
+    return result;
   }
 
 }
