@@ -71,6 +71,139 @@ public class Menu {
     r.keyRelease(KeyEvent.VK_CONTROL);
     r.keyRelease(KeyEvent.VK_Q);
   }
+  public static final String LEGEND = ""
+      + "\n"
+      + Colors.GREEN_BRIGHT + "LEGEND:      "
+      + Colors.YELLOW + " 0 < 10% " + Colors.RESET + " | "
+      + Colors.BLUE + "11 < 20% " + Colors.RESET + " | "
+      + Colors.CYAN + "21 < 30% " + Colors.RESET + " | "
+      + Colors.RED + " > 30% " + Colors.RESET + " | "
+      + "\n";
+
+  public static final String SHOW_SYSTEM_MENU_MAIN = ""
+      + "\n\n"
+      + Colors.WHITE_BACKGROUND + Colors.BLACK_BOLD + " e - Edit " + Colors.RESET + " "
+      + Colors.WHITE_BACKGROUND + Colors.BLACK_BOLD + " a - Add " + Colors.RESET + " "
+      + Colors.WHITE_BACKGROUND + Colors.BLACK_BOLD + " d - Delete " + Colors.RESET + " "
+      + Colors.WHITE_BACKGROUND + Colors.BLACK_BOLD + " q - Exit " + Colors.RESET + " ";
+  public static final String SHOW_SYSTEM_MENU = ""
+      + "\n\n"
+      + Colors.WHITE_BACKGROUND + Colors.BLACK_BOLD + " r - Return " + Colors.RESET + " "
+      + Colors.WHITE_BACKGROUND + Colors.BLACK_BOLD + " e - Edit " + Colors.RESET + " "
+      + Colors.WHITE_BACKGROUND + Colors.BLACK_BOLD + " a - Add " + Colors.RESET + " "
+      + Colors.WHITE_BACKGROUND + Colors.BLACK_BOLD + " d - Delete " + Colors.RESET + " "
+      + Colors.WHITE_BACKGROUND + Colors.BLACK_BOLD + " q - Exit " + Colors.RESET + " ";
+  public static final String SHOW_ALL_MENU_MAIN = ""
+      + Colors.YELLOW_BRIGHT + "SORT BY:      " + Colors.YELLOW_BACKGROUND
+      + Colors.WHITE_BOLD_BRIGHT + " 1-Id " + Colors.RESET + " "
+      + Colors.YELLOW_BACKGROUND + Colors.WHITE_BOLD_BRIGHT + " 2-User " + Colors.RESET + " "
+      + Colors.YELLOW_BACKGROUND + Colors.WHITE_BOLD_BRIGHT + " 3-Category " + Colors.RESET + " "
+      + Colors.YELLOW_BACKGROUND + Colors.WHITE_BOLD_BRIGHT + " 4-Amount " + Colors.RESET + " "
+      + Colors.YELLOW_BACKGROUND + Colors.WHITE_BOLD_BRIGHT + " 5-Date " + Colors.RESET
+      + "                        "
+      + Colors.GREEN_BRIGHT + "CHART BY:     " + Colors.WHITE_BOLD_BRIGHT + Colors.GREEN_BACKGROUND
+      + "  6 - Date  " + Colors.RESET + " "
+      + Colors.WHITE_BOLD_BRIGHT + Colors.GREEN_BACKGROUND + "  7 - Category  " + Colors.RESET + " "
+      + Colors.WHITE_BOLD_BRIGHT + Colors.GREEN_BACKGROUND + "  8 - User  " + Colors.RESET + " ";
+  public static final String SHOW_ALL_MENU_ID = ""
+      + Colors.YELLOW_BRIGHT + "SORT BY:      " + Colors.BLUE_BACKGROUND + Colors.WHITE_BOLD_BRIGHT
+      + " 1-Id " + Colors.RESET + " "
+      + Colors.YELLOW_BACKGROUND + Colors.WHITE_BOLD_BRIGHT + " 2-User " + Colors.RESET + " "
+      + Colors.YELLOW_BACKGROUND + Colors.WHITE_BOLD_BRIGHT + " 3-Category " + Colors.RESET + " "
+      + Colors.YELLOW_BACKGROUND + Colors.WHITE_BOLD_BRIGHT + " 4-Amount " + Colors.RESET + " "
+      + Colors.YELLOW_BACKGROUND + Colors.WHITE_BOLD_BRIGHT + " 5-Date " + Colors.RESET
+      + "                        "
+      + Colors.GREEN_BRIGHT + "CHART BY:     " + Colors.WHITE_BOLD_BRIGHT + Colors.GREEN_BACKGROUND
+      + "  6 - Date  " + Colors.RESET + " "
+      + Colors.WHITE_BOLD_BRIGHT + Colors.GREEN_BACKGROUND + "  7 - Category  " + Colors.RESET + " "
+      + Colors.WHITE_BOLD_BRIGHT + Colors.GREEN_BACKGROUND + "  8 - User  " + Colors.RESET + " ";
+  public static final String SHOW_ALL_MENU_USER = ""
+      + Colors.YELLOW_BRIGHT + "SORT BY:      " + Colors.YELLOW_BACKGROUND
+      + Colors.WHITE_BOLD_BRIGHT + " 1-Id " + Colors.RESET + " "
+      + Colors.BLUE_BACKGROUND + Colors.WHITE_BOLD_BRIGHT + " 2-User " + Colors.RESET + " "
+      + Colors.YELLOW_BACKGROUND + Colors.WHITE_BOLD_BRIGHT + " 3-Category " + Colors.RESET + " "
+      + Colors.YELLOW_BACKGROUND + Colors.WHITE_BOLD_BRIGHT + " 4-Amount " + Colors.RESET + " "
+      + Colors.YELLOW_BACKGROUND + Colors.WHITE_BOLD_BRIGHT + " 5-Date " + Colors.RESET
+      + "                        "
+      + Colors.GREEN_BRIGHT + "CHART BY:     " + Colors.WHITE_BOLD_BRIGHT + Colors.GREEN_BACKGROUND
+      + "  6 - Date  " + Colors.RESET + " "
+      + Colors.WHITE_BOLD_BRIGHT + Colors.GREEN_BACKGROUND + "  7 - Category  " + Colors.RESET + " "
+      + Colors.WHITE_BOLD_BRIGHT + Colors.GREEN_BACKGROUND + "  8 - User  " + Colors.RESET + " ";
+  public static final String SHOW_ALL_MENU_CATEGORY = ""
+      + Colors.YELLOW_BRIGHT + "SORT BY:      " + Colors.YELLOW_BACKGROUND
+      + Colors.WHITE_BOLD_BRIGHT + " 1-Id " + Colors.RESET + " "
+      + Colors.YELLOW_BACKGROUND + Colors.WHITE_BOLD_BRIGHT + " 2-User " + Colors.RESET + " "
+      + Colors.BLUE_BACKGROUND + Colors.WHITE_BOLD_BRIGHT + " 3-Category " + Colors.RESET + " "
+      + Colors.YELLOW_BACKGROUND + Colors.WHITE_BOLD_BRIGHT + " 4-Amount " + Colors.RESET + " "
+      + Colors.YELLOW_BACKGROUND + Colors.WHITE_BOLD_BRIGHT + " 5-Date " + Colors.RESET
+      + "                        "
+      + Colors.GREEN_BRIGHT + "CHART BY:     " + Colors.WHITE_BOLD_BRIGHT + Colors.GREEN_BACKGROUND
+      + "  6 - Date  " + Colors.RESET + " "
+      + Colors.WHITE_BOLD_BRIGHT + Colors.GREEN_BACKGROUND + "  7 - Category  " + Colors.RESET + " "
+      + Colors.WHITE_BOLD_BRIGHT + Colors.GREEN_BACKGROUND + "  8 - User  " + Colors.RESET + " ";
+  public static final String SHOW_ALL_MENU_AMOUNT = ""
+      + Colors.YELLOW_BRIGHT + "SORT BY:      " + Colors.YELLOW_BACKGROUND
+      + Colors.WHITE_BOLD_BRIGHT + " 1-Id " + Colors.RESET + " "
+      + Colors.YELLOW_BACKGROUND + Colors.WHITE_BOLD_BRIGHT + " 2-User " + Colors.RESET + " "
+      + Colors.YELLOW_BACKGROUND + Colors.WHITE_BOLD_BRIGHT + " 3-Category " + Colors.RESET + " "
+      + Colors.BLUE_BACKGROUND + Colors.WHITE_BOLD_BRIGHT + " 4-Amount " + Colors.RESET + " "
+      + Colors.YELLOW_BACKGROUND + Colors.WHITE_BOLD_BRIGHT + " 5-Date " + Colors.RESET
+      + "                        "
+      + Colors.GREEN_BRIGHT + "CHART BY:     " + Colors.WHITE_BOLD_BRIGHT + Colors.GREEN_BACKGROUND
+      + "  6 - Date  " + Colors.RESET + " "
+      + Colors.WHITE_BOLD_BRIGHT + Colors.GREEN_BACKGROUND + "  7 - Category  " + Colors.RESET + " "
+      + Colors.WHITE_BOLD_BRIGHT + Colors.GREEN_BACKGROUND + "  8 - User  " + Colors.RESET + " ";
+  public static final String SHOW_ALL_MENU_DATE = ""
+      + Colors.YELLOW_BRIGHT + "SORT BY:      " + Colors.YELLOW_BACKGROUND
+      + Colors.WHITE_BOLD_BRIGHT + " 1-Id " + Colors.RESET + " "
+      + Colors.YELLOW_BACKGROUND + Colors.WHITE_BOLD_BRIGHT + " 2-User " + Colors.RESET + " "
+      + Colors.YELLOW_BACKGROUND + Colors.WHITE_BOLD_BRIGHT + " 3-Category " + Colors.RESET + " "
+      + Colors.YELLOW_BACKGROUND + Colors.WHITE_BOLD_BRIGHT + " 4-Amount " + Colors.RESET + " "
+      + Colors.BLUE_BACKGROUND + Colors.WHITE_BOLD_BRIGHT + " 5-Date " + Colors.RESET
+      + "                        "
+      + Colors.GREEN_BRIGHT + "CHART BY:     " + Colors.WHITE_BOLD_BRIGHT + Colors.GREEN_BACKGROUND
+      + "  6 - Date  " + Colors.RESET + " "
+      + Colors.WHITE_BOLD_BRIGHT + Colors.GREEN_BACKGROUND + "  7 - Category  " + Colors.RESET + " "
+      + Colors.WHITE_BOLD_BRIGHT + Colors.GREEN_BACKGROUND + "  8 - User  " + Colors.RESET + " ";
+
+  public static final String SHOW_ALL_MENU_CHART_DATE = ""
+
+      + Colors.GREEN_BRIGHT + "CHART BY:     " + Colors.WHITE_BOLD_BRIGHT + Colors.BLUE_BACKGROUND
+      + "  6 - Date  " + Colors.RESET + " "
+      + Colors.WHITE_BOLD_BRIGHT + Colors.GREEN_BACKGROUND + "  7 - Category  " + Colors.RESET + " "
+      + Colors.WHITE_BOLD_BRIGHT + Colors.GREEN_BACKGROUND + "  8 - User  " + Colors.RESET + " ";
+
+  public static final String SHOW_ALL_MENU_CHART_CATEGORY = ""
+
+      + Colors.GREEN_BRIGHT + "CHART BY:     " + Colors.WHITE_BOLD_BRIGHT + Colors.GREEN_BACKGROUND
+      + "  6 - Date  " + Colors.RESET + " "
+      + Colors.WHITE_BOLD_BRIGHT + Colors.BLUE_BACKGROUND + "  7 - Category  " + Colors.RESET + " "
+      + Colors.WHITE_BOLD_BRIGHT + Colors.GREEN_BACKGROUND + "  8 - User  " + Colors.RESET + " ";
+
+  public static final String SHOW_ALL_MENU_CHART_USER = ""
+
+      + Colors.GREEN_BRIGHT + "CHART BY:     " + Colors.WHITE_BOLD_BRIGHT + Colors.GREEN_BACKGROUND
+      + "  6 - Date  " + Colors.RESET + " "
+      + Colors.WHITE_BOLD_BRIGHT + Colors.GREEN_BACKGROUND + "  7 - Category  " + Colors.RESET + " "
+      + Colors.WHITE_BOLD_BRIGHT + Colors.BLUE_BACKGROUND + "  8 - User  " + Colors.RESET + " ";
+
+  public static final String SHOW_SUB_MENU_CHART = ""
+      + "\n"
+      + Colors.WHITE_BACKGROUND + Colors.BLACK_BOLD + " r - Main menu  " + Colors.RESET + " ";
+
+  /**
+   * Main menu for all program
+   *
+   * @param records    List of Record with payments (can be sorted and filtered before)
+   * @param categories List of Categories
+   * @throws ParseException Signals that an error has been reached unexpectedly while parsing.
+   * @throws UnsupportedAudioFileException File format not valid
+   * @throws IOException File input error
+   * @throws LineUnavailableException line cannot be opened because it is unavailable.
+   * @throws AWTException Signals that an Abstract Window Toolkit exception has occurred.
+   */
+
+
 
   public static void recordsMAnu(List<Record> records, List<Category> categories)
       throws IOException, ParseException, AWTException, UnsupportedAudioFileException, LineUnavailableException {
@@ -123,6 +256,7 @@ public class Menu {
     boolean income = false;
     int multiply = 1;
     int id = Record.getNewRecordId(records);
+
 
   }
 }
