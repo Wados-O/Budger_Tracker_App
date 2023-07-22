@@ -9,11 +9,9 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 public class Operations {
-
 
   /**
    * Convert Date to String with pattern "dd.MM.yyyy"
@@ -26,6 +24,17 @@ public class Operations {
     return dateFormat.format(date);
   }
 
+  /**
+   * Convert String to Date with pattern "dd.MM.yyyy"
+   *
+   * @param string according to pattern
+   * @return Date
+   * @throws ParseException If date format not according "dd.MM.yyyy"
+   */
+  public static Date stringToDate(String string) throws ParseException {
+    DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+    return dateFormat.parse(string);
+  }
 
   /**
    * Calculate payment balance in period
@@ -43,7 +52,6 @@ public class Operations {
         .sum();
   }
 
-
   /**
    * Calculate Expenses in period
    *
@@ -52,8 +60,6 @@ public class Operations {
    * @param dateEnd   End of payments period plus one day
    * @return Sum of expenses in this period
    */
-
-
   public static double calcExpensesPeriod(List<Record> records, Date dateBegin, Date dateEnd) {
     return records.stream()
         .filter(x -> x.getDate().after(dateBegin))
@@ -110,7 +116,6 @@ public class Operations {
    * @param date    Date of expenses
    * @return Sum of expenses by User in this Date
    */
-
   public static double expensesByDate(List<Record> records, Date date) {
     return records.stream()
         .filter(x -> x.getDate().equals(date))
@@ -118,6 +123,21 @@ public class Operations {
         .mapToDouble(Record::getAmount)
         .sum();
   }
+
+  /**
+   * Sort part of LIst of by ID ALL Records
+   *
+   * @param records List of Record with payments
+   * @return new sorted LIst of Records
+   */
+  public static List<Record> sortByID(List<Record> records) {
+    List<Record> result;
+    result = records.stream()
+        .sorted(Comparator.comparingInt(Record::getId))
+        .collect(Collectors.toList());
+    return result;
+  }
+
 
   /**
    * Sort LIst of All Records by Date
@@ -133,6 +153,7 @@ public class Operations {
     return result;
   }
 
+
   /**
    * Sort LIst of All Records by User
    *
@@ -147,6 +168,7 @@ public class Operations {
     return result;
   }
 
+
   /**
    * Sort LIst of All Records by Category
    *
@@ -160,6 +182,7 @@ public class Operations {
         .collect(Collectors.toList());
     return result;
   }
+
 
   /**
    * Sort LIst of All Records by Amount
@@ -185,12 +208,14 @@ public class Operations {
   public static List<Date> datesBetween(Date dateBegin, Date dateEnd) {
     List<Date> dates = new ArrayList<>();
     Calendar calendar = new GregorianCalendar();
+    // setup calendar for dateBegin
     calendar.setTime(dateBegin);
-    while (calendar.getTime().before(dateEnd))//dateEnd exclusive!
+    // fill List of dates one by one
+    while (calendar.getTime().before(dateEnd)) // dateEnd exclusive!
     {
-      Date result = calendar.getTime();
-      dates.add(result);
-      calendar.add(Calendar.DATE, 1);
+      Date result = calendar.getTime(); // get date from current day
+      dates.add(result); // add to list of dates current date
+      calendar.add(Calendar.DATE, 1); // move day in calendar one dey front
     }
     return dates;
   }
@@ -230,5 +255,4 @@ public class Operations {
     maxDate = calendar.getTime();
     return maxDate;
   }
-
 }
