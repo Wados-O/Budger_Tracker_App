@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.ParseException;
@@ -36,22 +37,25 @@ public class IOCrypto {
       j++;
     }
   }
+
   /**
-   * Methods decrypt file, parse it and add records to ListRecord.
-   * Use methods parseRecordFromString().
+   * Methods decrypt file, parse it and add records to ListRecord. Use methods
+   * parseRecordFromString().
    * <p>
    * Check empty file.
    *
    * @param cryptoFile - File for decrypts.
    * @throws IOException throw.
    */
-  public static void makeUnCrypt(File cryptoFile, List<Record> records) throws IOException, ParseException {
+  public static void makeUnCrypt(File cryptoFile, List<Record> records)
+      throws IOException, ParseException {
     if (cryptoFile.length() == 0) {
       System.out.println("Empty file");
     } else {
       try {
         BufferedReader inputFileReader = new BufferedReader(new FileReader(cryptoFile));
-        for (String row = inputFileReader.readLine(); row != null; row = inputFileReader.readLine()) {
+        for (String row = inputFileReader.readLine(); row != null;
+            row = inputFileReader.readLine()) {
           StringBuilder tempString = new StringBuilder();
           for (int i = 0; i < row.length(); i++) {
             int code = (int) row.charAt(i) - CRYPTO;
@@ -63,7 +67,8 @@ public class IOCrypto {
       } catch (FileNotFoundException f) {
         cryptoFile = new File("src/res/crypto.txt");
         BufferedReader inputFileReader = new BufferedReader(new FileReader(cryptoFile));
-        for (String row = inputFileReader.readLine(); row != null; row = inputFileReader.readLine()) {
+        for (String row = inputFileReader.readLine(); row != null;
+            row = inputFileReader.readLine()) {
           StringBuilder tempString = new StringBuilder();
           for (int i = 0; i < row.length(); i++) {
             int code = (int) row.charAt(i) - CRYPTO;
@@ -84,7 +89,8 @@ public class IOCrypto {
    * @param records records for adding.
    * @throws ParseException can throw.
    */
-  public static void parseRecordFromString(String line,List<Record> records)throws ParseException{
+  public static void parseRecordFromString(String line, List<Record> records)
+      throws ParseException {
     String[] temp = line.split(SEP);
     Record record = new Record();
     record.setId(Integer.parseInt(temp[0]));
@@ -104,9 +110,11 @@ public class IOCrypto {
    * @return parsed String from Record
    */
   public static String recordToCryptoString(Record record) {
-    return record.getId() + "," + Operations.dateToString(record.getDate()) + "," + record.getUser() + "," + record.getAmount() +
+    return record.getId() + "," + Operations.dateToString(record.getDate()) + "," + record.getUser()
+        + "," + record.getAmount() +
         "," + record.getCategory() + "," + record.getComment();
   }
+
   /**
    * Method make new Output crypto file
    *
@@ -114,6 +122,32 @@ public class IOCrypto {
    * @param list    List of crypto items
    * @throws IOException can throw
    */
+  public static void makeNewOutputCryptoFile(List<Record> records, List<String> list) throws IOException {
+    makeCrypto(records);
+    makeOutputCryptoFile(list);
+  }
 
-  
+  /**
+   * Make output encrypted file from encrypted List
+   *
+   * @param list list for encrypting
+   * @throws IOException throws
+   */
+  public static void makeOutputCryptoFile(List<String> list) throws IOException {
+    try {
+      FileWriter cryptoFile = new FileWriter("src/res/crypto.txt");
+      for (String items : list) {
+        cryptoFile.write(items + "\n");
+      }
+      cryptoFile.close();
+    } catch (FileNotFoundException e) {
+      FileWriter cryptoFile = new FileWriter("src/res/crypto.txt");
+      for (String items : list) {
+        cryptoFile.write(items + "\n");
+      }
+      cryptoFile.close();
+    } catch (IOException e) {
+      System.err.println("Input/output exception: " + e.getMessage());
+    }
+  }
 }
