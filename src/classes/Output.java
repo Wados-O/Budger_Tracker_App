@@ -142,4 +142,56 @@ public class Output {
           + " (" + percent + "% )");
     }
   }
+
+  /**
+   * print Chart with percents of expenses by Data
+   *
+   * @param records   List of Record with payments (can be sorted and filtered before)
+   * @param dateBegin Begin of payments period
+   * @param dateEnd   End of payments period
+   */
+  public static void chartDate(List<Record> records, Date dateBegin, Date dateEnd) {
+    List<Date> dates;
+    String color = Colors.RESET;
+    dates = Operations.datesBetween(dateBegin, dateEnd);
+    // get total expenses for period
+    double totalEx = Operations.calcExpensesPeriod(records, dateBegin, dateEnd);
+    // calculate and output sum by date
+    System.out.println(Colors.WHITE_BRIGHT
+        + "┎┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┰┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┒");
+    System.out.println(Colors.WHITE_BRIGHT
+        + "┃     DATE      ┃                                           AMOUNT                                          ┃");
+    System.out.println(Colors.WHITE_BRIGHT
+        + "┖┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┸┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┚"
+        + Colors.RESET);
+    for (Date date : dates) {
+      double dateSum = -1 * Operations.expensesByDate(records, date); //expenses are negative
+      double percent = -1 * dateSum * 100 / totalEx;
+      if (percent == 0) {
+        continue;
+      }
+      System.out.print("┃   " + Operations.dateToString(date) + "  ┃");
+      for (int i = 0; i < percent; ++i) {
+        if (percent < 10) {
+          color = Colors.YELLOW;
+        }
+        if (percent > 10) {
+          color = Colors.BLUE;
+        }
+        if (percent > 15) {
+          color = Colors.CYAN;
+        }
+        if (percent > 30) {
+          color = Colors.RED_BRIGHT;
+        }
+        System.out.print(color + "*");
+      }
+      color = Colors.RESET;
+      System.out.print(Colors.RESET);
+      percent = Math.round(percent);
+      System.out.println(
+          Colors.WHITE_BRIGHT + " " + Colors.WHITE_BRIGHT + dateSum + Colors.RESET + " (" + percent
+              + "% )");
+    }
+  }
 }
