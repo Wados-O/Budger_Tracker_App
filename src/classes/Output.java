@@ -20,8 +20,15 @@ public class Output {
     }
     System.out.println(
         "└┈┈┈┈┈┈┸┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┸┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┸┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┸┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┸┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┘");
+    /**
+     * print Chart with percents of expenses by Category
+     *
+     * @param records    List of Record with payments (can be sorted and filtered before)
+     * @param categories List of Categories
+     * @param dateBegin  Begin of payments period
+     * @param dateEnd    End of payments period
+     */
 
-    // TODO
   }
 
 
