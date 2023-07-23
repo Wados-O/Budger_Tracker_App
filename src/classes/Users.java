@@ -1,10 +1,6 @@
 package classes;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,38 +22,45 @@ public class Users {
   }
 
   public Users() {
-
   }
+
   /**
    * Methods read login and password from file, check it
    *
    * @param usersFile file with password and login
    * @throws IOException can throw
    */
-
-  public static void showLogin(File usersFile) throws IOException{
+  public static void showLogin(File usersFile) throws IOException {
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     BufferedReader inputFileReader = new BufferedReader(new FileReader(usersFile));
-    Map<String,String> users = new HashMap<>();
+    Map<String, String> users = new HashMap<>();
 
-    for (String row = inputFileReader.readLine(); row != null; row = inputFileReader.readLine()){
+    for (String row = inputFileReader.readLine(); row != null; row = inputFileReader.readLine()) {
       String[] temp = row.split(IOCrypto.SEP);
-      users.put(temp[0],temp[1]);
+      users.put(temp[0], temp[1]);
       userNames.add(temp[0]);
     }
     System.out.println();
     System.out.print(Colors.BLUE_BRIGHT + "Enter login:     " + Colors.RESET);
     String login = br.readLine();
-    System.out.print(Colors.BLUE_BRIGHT + "Enter password:    " + Colors.RESET);
+    System.out.print(Colors.BLUE_BRIGHT + "Enter password:  " + Colors.RESET);
     String password = br.readLine();
     System.out.println();
-    try{
-      if (users.get(login).equals(password)){
-        System.out.println(Colors.YELLOW_BOLD_BRIGHT + "Congratulations, you're logged in! \uD83D\uDC4C" + Colors.RESET);
-
+    try {
+      if (users.get(login).equals(password)) {
+        System.out.println(
+            Colors.YELLOW_BOLD_BRIGHT + "Congratulations, you're logged in! \uD83D\uDC4C"
+                + Colors.RESET);
+        Menu.delayMain();
+        setUserName(login);
+      } else {
+        System.err.println("Incorrect password.");
+        System.out.println();
+        showLogin(usersFile);
       }
-    }catch (Exception e){
-      System.err.println();
+    } catch (NullPointerException e) {
+      System.out.println("User is not detected.");
+      showLogin(usersFile);
     }
   }
 }
