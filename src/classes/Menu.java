@@ -321,7 +321,58 @@ public class Menu {
           Menu.recordsMenu(records, categories);
           break;
         }
-
+        case "q": {
+          soundClick();
+          System.exit(0);
+          break;
+        }
+        case "e": {
+          soundClick();
+          editRecord(records, categories);
+          clearAll();
+          Menu.delaySecond();
+          Menu.printHeader();
+          Menu.delaySecond();
+          Output.printList(records);
+          Output.printFinance(records);
+          System.out.println(Menu.SHOW_ALL_MENU_MAIN);
+          System.out.println(SHOW_SYSTEM_MENU_MAIN);
+          Menu.recordsMenu(records, categories);
+          break;
+        }
+        case "a": {
+          soundClick();
+          addRecord(records, categories);
+          clearAll();
+          Menu.delaySecond();
+          Menu.printHeader();
+          Menu.delaySecond();
+          Output.printList(records);
+          Output.printFinance(records);
+          System.out.println(Menu.SHOW_SYSTEM_MENU_MAIN);
+          System.out.println(SHOW_SYSTEM_MENU_MAIN);
+          Menu.recordsMenu(records, categories);
+          break;
+        }
+        case "d": {
+          soundClick();
+          deleteRecord(records);
+          clearAll();
+          delaySecond();
+          Menu.printHeader();
+          Menu.delaySecond();
+          Output.printList(records);
+          Output.printFinance(records);
+          System.out.println(Menu.SHOW_SYSTEM_MENU_MAIN);
+          System.out.println(SHOW_SYSTEM_MENU_MAIN);
+          Menu.recordsMenu(records, categories);
+          break;
+        }
+        case "s": {
+          soundClick();
+          System.out.println("ПОСЛЕНИЙ СЛФЙД НА ПРОЩЕНИЕ");
+          break;
+        }
       }
     }
   }
