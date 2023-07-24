@@ -9,6 +9,10 @@ public class Category {
   private String title;
   private boolean allowed;
 
+  public String getTitle() {
+    return title;
+  }
+
   public Category() {
   }
 
