@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.function.DoubleToIntFunction;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -320,12 +321,6 @@ public class Menu {
           Menu.recordsMenu(records, categories);
           break;
         }
-        case "q": {
-          soundClick();
-          System.exit(0);
-          break;
-        }
-
 
       }
     }
@@ -350,6 +345,7 @@ public class Menu {
     clearAll();
     delaySecond();
   }
+
   /**
    * Ask user and then add new record to List of records
    *
@@ -509,10 +505,27 @@ public class Menu {
         }
       }
       return;
-
-
     }
-
-
   }
+
+  /**
+   * Delete record from list of records.
+   *
+   * @param records List of records
+   * @throws IOException if IO error
+   */
+  public static void deleteRecord(List<Record> records) throws IOException {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    System.out.print("Input ID record to delete: ");
+    int id = Integer.parseInt(br.readLine());
+    System.out.println("Are you sure you want to delete record? [y/n] ");
+    String input = br.readLine();
+    if (!input.equalsIgnoreCase("y")) {
+      return;
+    }
+    records.removeIf(record -> record.getId() == id);
+    IOCrypto.makeNewOutputCryptoFile(records, IOCrypto.list);
+  }
+
+
 }
