@@ -237,10 +237,10 @@ public class Menu {
           Output.printFinance(records);
           System.out.println(SHOW_ALL_MENU_USER);
           System.out.println(SHOW_ALL_MENU_MAIN);
-          Menu.recordsMenu(records,categories);
+          Menu.recordsMenu(records, categories);
           break;
         }
-        case"3":{
+        case "3": {
           soundClick();
           Menu.printHeader();
           delaySecond();
@@ -249,10 +249,10 @@ public class Menu {
 
           System.out.println(SHOW_ALL_MENU_CATEGORY);
           System.out.println(SHOW_ALL_MENU_MAIN);
-          Menu.recordsMenu(records,categories);
+          Menu.recordsMenu(records, categories);
           break;
         }
-        case "4":{
+        case "4": {
           soundClick();
           Menu.printHeader();
           delaySecond();
@@ -261,10 +261,10 @@ public class Menu {
 
           System.out.println(SHOW_ALL_MENU_AMOUNT);
           System.out.println(SHOW_SYSTEM_MENU);
-          Menu.recordsMenu(records,categories);
+          Menu.recordsMenu(records, categories);
           break;
         }
-        case"5":{
+        case "5": {
           soundClick();
           Menu.printHeader();
           delaySecond();
@@ -273,12 +273,12 @@ public class Menu {
 
           System.out.println(SHOW_ALL_MENU_AMOUNT);
           System.out.println(SHOW_SYSTEM_MENU);
-          Menu.recordsMenu(records,categories);
+          Menu.recordsMenu(records, categories);
           break;
         }
-        case"6":{
+        case "6": {
           soundClick();
-          Output.chartDate(records,Operations.getMinDate(records),Operations.getMaxDate(records));
+          Output.chartDate(records, Operations.getMinDate(records), Operations.getMaxDate(records));
 
           Output.printFinance(records);
           System.out.println(LEGEND);
@@ -286,9 +286,10 @@ public class Menu {
           System.out.println(SHOW_SUB_MENU_CHART);
           break;
         }
-        case"7":{
+        case "7": {
           soundClick();
-          Output.chartCategory(records,categories,Operations.getMinDate(records),Operations.getMaxDate(records));
+          Output.chartCategory(records, categories, Operations.getMinDate(records),
+              Operations.getMaxDate(records));
           Output.printFinance(records);
 
           System.out.println(LEGEND);
@@ -296,9 +297,10 @@ public class Menu {
           System.out.println(SHOW_SUB_MENU_CHART);
           break;
         }
-        case"8":{
+        case "8": {
           soundClick();
-          Output.chartUser(records,Users.userNames,Operations.getMinDate(records),Operations.getMaxDate(records));
+          Output.chartUser(records, Users.userNames, Operations.getMinDate(records),
+              Operations.getMaxDate(records));
           Output.printFinance(records);
 
           System.out.println(LEGEND);
@@ -307,7 +309,7 @@ public class Menu {
           break;
 
         }
-        case "r":{
+        case "r": {
           soundClick();
           Menu.printHeader();
           Menu.delaySecond();
@@ -315,10 +317,10 @@ public class Menu {
           Output.printFinance(records);
           System.out.println(Menu.SHOW_ALL_MENU_MAIN);
           System.out.println(SHOW_SYSTEM_MENU_MAIN);
-          Menu.recordsMenu(records,categories);
+          Menu.recordsMenu(records, categories);
           break;
         }
-        case"q":{
+        case "q": {
           soundClick();
           System.exit(0);
           break;
@@ -374,8 +376,84 @@ public class Menu {
    * @throws IOException IO error
    */
 
-  public static void editRecord(List<Record> records,List<Category> categories)
-    throws IOException,UnsupportedAudioFileException,LineUnavailableException,AWTException{
+  public static void editRecord(List<Record> records, List<Category> categories)
+      throws IOException, UnsupportedAudioFileException, LineUnavailableException, AWTException {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    System.out.print(Colors.BLUE_BRIGHT + "Input ID of record:                       |   ");
+    boolean income = false;
+    double amount = -0;
+    int multiply = 1;
+    String comment = "";
+    String categoryName = "";
+
+    int id = Integer.parseInt(br.readLine());
+
+    System.out.print("Do you want to change INCOME/EXPENSES? [y/n]  |   ");
+    String input = br.readLine();
+    if (input.equalsIgnoreCase("y")) {
+      System.out.print(Colors.BLUE + "Is this income or expenses(i/e):     ");
+      String incomeOrExpenses = br.readLine();
+      if (incomeOrExpenses.equalsIgnoreCase("i")) {
+        income = true;
+      }
+    }
+    System.out.print("Do you want to change Comment? [y/n]     |   ");
+    input = br.readLine();
+    if (input.equalsIgnoreCase("y")) {
+      System.out.print(Colors.WHITE_BRIGHT + "Input comment:     ");
+      comment = br.readLine();
+    }
+    System.out.print(Colors.BLUE + "Do you want to change Category? [y/n] ");
+    input = br.readLine();
+    if (input.equalsIgnoreCase("y")) {
+      for (int i = 0; i < categories.size(); i++) {
+        System.out.println("" + i + "" + categories.get(i).getTitle());
+      }
+      System.out.print(Colors.WHITE_BRIGHT + "Choose category from list(0-9):    ");
+      int cat = Integer.parseInt(br.readLine());
+      categoryName = categories.get(cat).getTitle();
+    }
+    System.out.print("Do you want to change AMOUNT?[y/n]");
+    input = br.readLine();
+    if (input.equalsIgnoreCase("y")) {
+      System.out.print("Input amount:     ");
+      amount = Math.abs(Double.parseDouble(br.readLine()));
+    }
+    System.out.println();
+    System.out.print(Colors.WHITE_BACKGROUND_BRIGHT + Colors.BLACK_BOLD + " s - SAVE" +
+        Colors.RESET + " " + Colors.WHITE_BACKGROUND_BRIGHT +
+        Colors.BLACK_BOLD + " r-RETURN: " + Colors.RESET);
+    while (true) {
+      String command = br.readLine();
+      if (command.equalsIgnoreCase("r")) {
+        soundClick();
+        return;
+      } else if (command.equalsIgnoreCase("s")) {
+        soundClick();
+      }
+      for (Record record : records) {
+        if (record.getId() == id) {
+          if (categoryName.equals(record.getCategory())) {
+            record.setCategory(categoryName);
+          }
+          if (!income) {
+            multiply = -1;
+          }
+          amount *= multiply;
+          if (amount != record.getAmount()) {
+            record.setAmount(amount);
+          }
+          if (!comment.equals(record.getComment())) {
+            record.setComment(comment);
+          }
+          IOCrypto.makeNewOutputCryptoFile(records, IOCrypto.list);
+        }
+      }
+      return;
+
+
+    }
+
 
   }
 }
