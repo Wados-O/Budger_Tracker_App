@@ -350,6 +350,14 @@ public class Menu {
     clearAll();
     delaySecond();
   }
+  /**
+   * Ask user and then add new record to List of records
+   *
+   * @param records    List of Record with payments (can be sorted and filtered before)
+   * @param categories List of Categories
+   * @throws IOException    IO error
+   * @throws ParseException if illegal Date format
+   */
 
   public static void addRecord(List<Record> records, List<Category> categories)
       throws IOException, ParseException, UnsupportedAudioFileException, LineUnavailableException, AWTException {
@@ -365,7 +373,58 @@ public class Menu {
     int multiply = 1;
     int id = Record.getNewRecordId(records);
 
+    System.out.println(Colors.BLUE + "Task ID:         " + id);
+    System.out.printf(Colors.BLUE + "User:          %s%n", Users.getUserName());
+    System.out.print(Colors.BLUE + "Is this income or expenses (i/e):     ");
+    String incomeOrExpenses = br.readLine();
+    if (incomeOrExpenses.equalsIgnoreCase("i")) {
+      income = true;
+    }
+    System.out.print(Colors.BLUE + "Input comment:     ");
+    String comment = br.readLine();
+    System.out.println("Current date: " + Operations.dateToString(currentDate));
+    System.out.print(Colors.BLUE + "Input date or 'Enter' for current date (dd.MM.yyyy):  ");
+    String startDate = br.readLine();
+    if (!startDate.isEmpty()) {
+      stDate = formatter.parse(startDate);
+    }
+    if (!income) {
+      for (int i = 0; i < categories.size(); ++i) {
+        System.out.println("" + i + " " + categories.get(i).getTitle());
+      }
+      System.out.print("Choose category from list (0-9):      ");
+      int cat = Integer.parseInt(br.readLine());
+      categoryName = categories.get(cat).getTitle();//get category by number and get title
+    }
+    System.out.print("Input amount:      ");
+    double amount = Math.abs(Double.parseDouble(br.readLine()));
+    System.out.println();
+    System.out.print(Colors.WHITE_BACKGROUND_BRIGHT + Colors.BLACK_BOLD + " s - SAVE " +
+        Colors.RESET + " " + Colors.WHITE_BACKGROUND_BRIGHT +
+        Colors.BLACK_BOLD + " r-RETURN: " + Colors.RESET);
+    while (true) {
+      String command = br.readLine();
+      if (command.equalsIgnoreCase("r")) {
+        soundClick();
+        return;
+      } else if (command.equalsIgnoreCase("s")) {
+        soundClick();
+        record.setId(id);
+        record.setUser(Users.getUserName());
+        record.setDate(stDate);
+        record.setComment(comment);
+        record.setCategory(categoryName);
+        if (!income) {
+          multiply = -1;
+        }
+        amount *= multiply;
+        record.setAmount(amount);
+        records.add(record);
 
+        IOCrypto.makeNewOutputCryptoFile(records, IOCrypto.list);
+        return;
+      }
+    }
   }
 
   /**
