@@ -1,9 +1,7 @@
 package classes;
 
-import java.awt.image.RescaleOp;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 public class Output {
 
