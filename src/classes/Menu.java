@@ -1,28 +1,16 @@
 package classes;
 
-import com.sun.tools.javac.Main;
-import java.awt.AWTException;
-import java.awt.PageAttributes;
-import java.awt.Robot;
+import javax.sound.sampled.*;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.sql.SQLOutput;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.text.*;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.function.DoubleToIntFunction;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class Menu {
 
@@ -31,28 +19,29 @@ public class Menu {
   public static final String LINECLOSE = "┠┈┈┈┈┈┈┼┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┼┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┼┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┼┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┼┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┤";
 
   /**
-   * Print header for table of records
+   * Print Header for table of records
+   *
    */
-
   public static void printHeader() {
     System.out.println(Colors.WHITE_BOLD_BRIGHT + LINEOPEN + Colors.RESET);
     System.out.println(Colors.WHITE_BOLD_BRIGHT + HEADER + Colors.RESET);
-    System.out.println(Colors.WHITE_BOLD_BRIGHT + Colors.RESET);
+    System.out.println(Colors.WHITE_BOLD_BRIGHT + LINECLOSE + Colors.RESET);
   }
 
   /**
    * make delay for 2000ms
+   *
    */
-
   public static void delayMain() {
     int delay = 2000;
     long start = System.currentTimeMillis();
-    while (start > System.currentTimeMillis() - delay)
+    while (start >= System.currentTimeMillis() - delay)
       ;
   }
 
   /**
    * make delay for 100ms
+   *
    */
   public static void delaySecond() {
     int delay = 100;
@@ -62,9 +51,9 @@ public class Menu {
   }
 
   /**
-   * clear console
+   * Clear console
    *
-   * @throws AWTException
+   * @throws AWTException Signals that an Abstract Window Toolkit exception has occurred.
    */
   public static void clearAll() throws AWTException {
     Robot r = new Robot();
@@ -199,16 +188,12 @@ public class Menu {
    *
    * @param records    List of Record with payments (can be sorted and filtered before)
    * @param categories List of Categories
-   * @throws ParseException                Signals that an error has been reached unexpectedly while
-   *                                       parsing.
+   * @throws ParseException Signals that an error has been reached unexpectedly while parsing.
    * @throws UnsupportedAudioFileException File format not valid
-   * @throws IOException                   File input error
-   * @throws LineUnavailableException      line cannot be opened because it is unavailable.
-   * @throws AWTException                  Signals that an Abstract Window Toolkit exception has
-   *                                       occurred.
+   * @throws IOException File input error
+   * @throws LineUnavailableException line cannot be opened because it is unavailable.
+   * @throws AWTException Signals that an Abstract Window Toolkit exception has occurred.
    */
-
-
   public static void recordsMenu(List<Record> records, List<Category> categories)
       throws IOException, ParseException, AWTException, UnsupportedAudioFileException, LineUnavailableException {
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -237,7 +222,7 @@ public class Menu {
           Output.printList(Operations.sortByUser(records));
           Output.printFinance(records);
           System.out.println(SHOW_ALL_MENU_USER);
-          System.out.println(SHOW_ALL_MENU_MAIN);
+          System.out.println(SHOW_SYSTEM_MENU_MAIN);
           Menu.recordsMenu(records, categories);
           break;
         }
@@ -249,7 +234,7 @@ public class Menu {
           Output.printFinance(records);
 
           System.out.println(SHOW_ALL_MENU_CATEGORY);
-          System.out.println(SHOW_ALL_MENU_MAIN);
+          System.out.println(SHOW_SYSTEM_MENU_MAIN);
           Menu.recordsMenu(records, categories);
           break;
         }
@@ -261,7 +246,7 @@ public class Menu {
           Output.printFinance(records);
 
           System.out.println(SHOW_ALL_MENU_AMOUNT);
-          System.out.println(SHOW_SYSTEM_MENU);
+          System.out.println(SHOW_SYSTEM_MENU_MAIN);
           Menu.recordsMenu(records, categories);
           break;
         }
@@ -272,8 +257,8 @@ public class Menu {
           Output.printList(Operations.sortByDate(records));
           Output.printFinance(records);
 
-          System.out.println(SHOW_ALL_MENU_AMOUNT);
-          System.out.println(SHOW_SYSTEM_MENU);
+          System.out.println(SHOW_ALL_MENU_DATE);
+          System.out.println(SHOW_SYSTEM_MENU_MAIN);
           Menu.recordsMenu(records, categories);
           break;
         }
@@ -282,6 +267,7 @@ public class Menu {
           Output.chartDate(records, Operations.getMinDate(records), Operations.getMaxDate(records));
 
           Output.printFinance(records);
+
           System.out.println(LEGEND);
           System.out.println(SHOW_ALL_MENU_CHART_DATE);
           System.out.println(SHOW_SUB_MENU_CHART);
@@ -291,6 +277,7 @@ public class Menu {
           soundClick();
           Output.chartCategory(records, categories, Operations.getMinDate(records),
               Operations.getMaxDate(records));
+
           Output.printFinance(records);
 
           System.out.println(LEGEND);
@@ -302,13 +289,13 @@ public class Menu {
           soundClick();
           Output.chartUser(records, Users.userNames, Operations.getMinDate(records),
               Operations.getMaxDate(records));
+
           Output.printFinance(records);
 
           System.out.println(LEGEND);
           System.out.println(SHOW_ALL_MENU_CHART_USER);
           System.out.println(SHOW_SUB_MENU_CHART);
           break;
-
         }
         case "r": {
           soundClick();
@@ -349,7 +336,7 @@ public class Menu {
           Menu.delaySecond();
           Output.printList(records);
           Output.printFinance(records);
-          System.out.println(Menu.SHOW_SYSTEM_MENU_MAIN);
+          System.out.println(Menu.SHOW_ALL_MENU_MAIN);
           System.out.println(SHOW_SYSTEM_MENU_MAIN);
           Menu.recordsMenu(records, categories);
           break;
@@ -363,14 +350,14 @@ public class Menu {
           Menu.delaySecond();
           Output.printList(records);
           Output.printFinance(records);
-          System.out.println(Menu.SHOW_SYSTEM_MENU_MAIN);
+          System.out.println(Menu.SHOW_ALL_MENU_MAIN);
           System.out.println(SHOW_SYSTEM_MENU_MAIN);
           Menu.recordsMenu(records, categories);
           break;
         }
         case "s": {
           soundClick();
-          System.out.println("ПОСЛЕНИЙ СЛФЙД НА ПРОЩЕНИЕ");
+          System.out.println("ПОСЛЕДНИЙ СЛАЙД НА ПРОЩЕНИЕ");
           break;
         }
       }
@@ -381,10 +368,9 @@ public class Menu {
    * make sound "mouse click"
    *
    * @throws UnsupportedAudioFileException File format not valid
-   * @throws IOException                   File input error
-   * @throws LineUnavailableException      line cannot be opened because it is unavailable.
-   * @throws AWTException                  Signals that an Abstract Window Toolkit exception has
-   *                                       occurred.
+   * @throws IOException File input error
+   * @throws LineUnavailableException line cannot be opened because it is unavailable.
+   * @throws AWTException Signals that an Abstract Window Toolkit exception has occurred.
    */
   public static void soundClick()
       throws UnsupportedAudioFileException, IOException, LineUnavailableException, AWTException {
@@ -397,6 +383,7 @@ public class Menu {
     delaySecond();
   }
 
+
   /**
    * Ask user and then add new record to List of records
    *
@@ -405,7 +392,6 @@ public class Menu {
    * @throws IOException    IO error
    * @throws ParseException if illegal Date format
    */
-
   public static void addRecord(List<Record> records, List<Category> categories)
       throws IOException, ParseException, UnsupportedAudioFileException, LineUnavailableException, AWTException {
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -481,13 +467,12 @@ public class Menu {
    * @param categories List of Categories
    * @throws IOException IO error
    */
-
   public static void editRecord(List<Record> records, List<Category> categories)
       throws IOException, UnsupportedAudioFileException, LineUnavailableException, AWTException {
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     System.out.print(Colors.BLUE_BRIGHT + "Input ID of record:                       |   ");
     boolean income = false;
-    double amount = -0;
+    double amount = 0;
     int multiply = 1;
     String comment = "";
     String categoryName = "";
@@ -497,36 +482,36 @@ public class Menu {
     System.out.print("Do you want to change INCOME/EXPENSES? [y/n]  |   ");
     String input = br.readLine();
     if (input.equalsIgnoreCase("y")) {
-      System.out.print(Colors.BLUE + "Is this income or expenses(i/e):     ");
+      System.out.print(Colors.BLUE + "Is this income or expenses (i/e):     ");
       String incomeOrExpenses = br.readLine();
       if (incomeOrExpenses.equalsIgnoreCase("i")) {
         income = true;
       }
     }
-    System.out.print("Do you want to change Comment? [y/n]     |   ");
+    System.out.print("Do you want to change Comment? [y/n]      |   ");
     input = br.readLine();
     if (input.equalsIgnoreCase("y")) {
       System.out.print(Colors.WHITE_BRIGHT + "Input comment:     ");
       comment = br.readLine();
     }
-    System.out.print(Colors.BLUE + "Do you want to change Category? [y/n] ");
+    System.out.print(Colors.BLUE + "Do you want change Category? [y/n] ");
     input = br.readLine();
     if (input.equalsIgnoreCase("y")) {
-      for (int i = 0; i < categories.size(); i++) {
-        System.out.println("" + i + "" + categories.get(i).getTitle());
+      for (int i = 0; i < categories.size(); ++i) {
+        System.out.println("" + i + " " + categories.get(i).getTitle());
       }
-      System.out.print(Colors.WHITE_BRIGHT + "Choose category from list(0-9):    ");
+      System.out.print(Colors.WHITE_BRIGHT + "Choose category from list (0-9):      ");
       int cat = Integer.parseInt(br.readLine());
-      categoryName = categories.get(cat).getTitle();
+      categoryName = categories.get(cat).getTitle();//get category by number and get title
     }
-    System.out.print("Do you want to change AMOUNT?[y/n]");
+    System.out.print("Do you want change AMOUNT? [y/n] ");
     input = br.readLine();
     if (input.equalsIgnoreCase("y")) {
-      System.out.print("Input amount:     ");
+      System.out.print("Input amount:      ");
       amount = Math.abs(Double.parseDouble(br.readLine()));
     }
     System.out.println();
-    System.out.print(Colors.WHITE_BACKGROUND_BRIGHT + Colors.BLACK_BOLD + " s - SAVE" +
+    System.out.print(Colors.WHITE_BACKGROUND_BRIGHT + Colors.BLACK_BOLD + " s - SAVE " +
         Colors.RESET + " " + Colors.WHITE_BACKGROUND_BRIGHT +
         Colors.BLACK_BOLD + " r-RETURN: " + Colors.RESET);
     while (true) {
@@ -536,26 +521,26 @@ public class Menu {
         return;
       } else if (command.equalsIgnoreCase("s")) {
         soundClick();
-      }
-      for (Record record : records) {
-        if (record.getId() == id) {
-          if (categoryName.equals(record.getCategory())) {
-            record.setCategory(categoryName);
+        for (Record record : records) {
+          if (record.getId() == id) {
+            if (categoryName.equals(record.getCategory())) {
+              record.setCategory(categoryName);
+            }
+            if (!income) {
+              multiply = -1;
+            }
+            amount *= multiply;
+            if (amount != record.getAmount()) {
+              record.setAmount(amount);
+            }
+            if (!comment.equals(record.getComment())) {
+              record.setComment(comment);
+            }
+            IOCrypto.makeNewOutputCryptoFile(records, IOCrypto.list);
           }
-          if (!income) {
-            multiply = -1;
-          }
-          amount *= multiply;
-          if (amount != record.getAmount()) {
-            record.setAmount(amount);
-          }
-          if (!comment.equals(record.getComment())) {
-            record.setComment(comment);
-          }
-          IOCrypto.makeNewOutputCryptoFile(records, IOCrypto.list);
         }
+        return;
       }
-      return;
     }
   }
 
@@ -567,9 +552,9 @@ public class Menu {
    */
   public static void deleteRecord(List<Record> records) throws IOException {
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    System.out.print("Input ID record to delete: ");
+    System.out.print("Input ID of record to delete: ");
     int id = Integer.parseInt(br.readLine());
-    System.out.println("Are you sure you want to delete record? [y/n] ");
+    System.out.println("Are you sure you want to delete record? [y/n]");
     String input = br.readLine();
     if (!input.equalsIgnoreCase("y")) {
       return;
@@ -577,6 +562,4 @@ public class Menu {
     records.removeIf(record -> record.getId() == id);
     IOCrypto.makeNewOutputCryptoFile(records, IOCrypto.list);
   }
-
-
 }
