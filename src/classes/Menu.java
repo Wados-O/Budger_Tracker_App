@@ -1,5 +1,6 @@
 package classes;
 
+import com.sun.tools.javac.Main;
 import java.awt.AWTException;
 import java.awt.PageAttributes;
 import java.awt.Robot;
@@ -71,6 +72,7 @@ public class Menu {
     r.keyRelease(KeyEvent.VK_CONTROL);
     r.keyRelease(KeyEvent.VK_Q);
   }
+
   public static final String LEGEND = ""
       + "\n"
       + Colors.GREEN_BRIGHT + "LEGEND:      "
@@ -196,13 +198,14 @@ public class Menu {
    *
    * @param records    List of Record with payments (can be sorted and filtered before)
    * @param categories List of Categories
-   * @throws ParseException Signals that an error has been reached unexpectedly while parsing.
+   * @throws ParseException                Signals that an error has been reached unexpectedly while
+   *                                       parsing.
    * @throws UnsupportedAudioFileException File format not valid
-   * @throws IOException File input error
-   * @throws LineUnavailableException line cannot be opened because it is unavailable.
-   * @throws AWTException Signals that an Abstract Window Toolkit exception has occurred.
+   * @throws IOException                   File input error
+   * @throws LineUnavailableException      line cannot be opened because it is unavailable.
+   * @throws AWTException                  Signals that an Abstract Window Toolkit exception has
+   *                                       occurred.
    */
-
 
 
   public static void recordsMenu(List<Record> records, List<Category> categories)
@@ -226,6 +229,102 @@ public class Menu {
           Menu.recordsMenu(records, categories);
           break;
         }
+        case "2": {
+          soundClick();
+          Menu.printHeader();
+          delaySecond();
+          Output.printList(Operations.sortByUser(records));
+          Output.printFinance(records);
+          System.out.println(SHOW_ALL_MENU_USER);
+          System.out.println(SHOW_ALL_MENU_MAIN);
+          Menu.recordsMenu(records,categories);
+          break;
+        }
+        case"3":{
+          soundClick();
+          Menu.printHeader();
+          delaySecond();
+          Output.printList(Operations.sortByCategory(records));
+          Output.printFinance(records);
+
+          System.out.println(SHOW_ALL_MENU_CATEGORY);
+          System.out.println(SHOW_ALL_MENU_MAIN);
+          Menu.recordsMenu(records,categories);
+          break;
+        }
+        case "4":{
+          soundClick();
+          Menu.printHeader();
+          delaySecond();
+          Output.printList(Operations.sortByAmount(records));
+          Output.printFinance(records);
+
+          System.out.println(SHOW_ALL_MENU_AMOUNT);
+          System.out.println(SHOW_SYSTEM_MENU);
+          Menu.recordsMenu(records,categories);
+          break;
+        }
+        case"5":{
+          soundClick();
+          Menu.printHeader();
+          delaySecond();
+          Output.printList(Operations.sortByDate(records));
+          Output.printFinance(records);
+
+          System.out.println(SHOW_ALL_MENU_AMOUNT);
+          System.out.println(SHOW_SYSTEM_MENU);
+          Menu.recordsMenu(records,categories);
+          break;
+        }
+        case"6":{
+          soundClick();
+          Output.chartDate(records,Operations.getMinDate(records),Operations.getMaxDate(records));
+
+          Output.printFinance(records);
+          System.out.println(LEGEND);
+          System.out.println(SHOW_ALL_MENU_CHART_DATE);
+          System.out.println(SHOW_SUB_MENU_CHART);
+          break;
+        }
+        case"7":{
+          soundClick();
+          Output.chartCategory(records,categories,Operations.getMinDate(records),Operations.getMaxDate(records));
+          Output.printFinance(records);
+
+          System.out.println(LEGEND);
+          System.out.println(SHOW_ALL_MENU_CHART_CATEGORY);
+          System.out.println(SHOW_SUB_MENU_CHART);
+          break;
+        }
+        case"8":{
+          soundClick();
+          Output.chartUser(records,Users.userNames,Operations.getMinDate(records),Operations.getMaxDate(records));
+          Output.printFinance(records);
+
+          System.out.println(LEGEND);
+          System.out.println(SHOW_ALL_MENU_CHART_USER);
+          System.out.println(SHOW_SUB_MENU_CHART);
+          break;
+
+        }
+        case "r":{
+          soundClick();
+          Menu.printHeader();
+          Menu.delaySecond();
+          Output.printList(records);
+          Output.printFinance(records);
+          System.out.println(Menu.SHOW_ALL_MENU_MAIN);
+          System.out.println(SHOW_SYSTEM_MENU_MAIN);
+          Menu.recordsMenu(records,categories);
+          break;
+        }
+        case"q":{
+          soundClick();
+          System.exit(0);
+          break;
+        }
+
+
       }
     }
   }
@@ -250,8 +349,8 @@ public class Menu {
     delaySecond();
   }
 
-  public static void addRecord(List<Record> records,List<Category> categories)
-      throws IOException,ParseException,UnsupportedAudioFileException,LineUnavailableException,AWTException{
+  public static void addRecord(List<Record> records, List<Category> categories)
+      throws IOException, ParseException, UnsupportedAudioFileException, LineUnavailableException, AWTException {
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     DateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
     Record record = new Record();
@@ -264,6 +363,19 @@ public class Menu {
     int multiply = 1;
     int id = Record.getNewRecordId(records);
 
+
+  }
+
+  /**
+   * Edit existing record, only fields: Income/Expenses; Comment; Amount; Category
+   *
+   * @param records    List of Record with payments (can be sorted and filtered before)
+   * @param categories List of Categories
+   * @throws IOException IO error
+   */
+
+  public static void editRecord(List<Record> records,List<Category> categories)
+    throws IOException,UnsupportedAudioFileException,LineUnavailableException,AWTException{
 
   }
 }
