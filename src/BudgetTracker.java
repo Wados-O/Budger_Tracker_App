@@ -27,10 +27,10 @@ public class BudgetTracker {
       throws IOException, ParseException, AWTException, UnsupportedAudioFileException, LineUnavailableException {
 //    File budgetFile = new File("src/res/budget.txt"); //***===DO NOT DELETE===***
 //    IOCrypto.parseFileUnencrypted(budgetFile,records); //***===DO NOT DELETE===***
-    File loginFile = new File("src/rec/login,txt");
-    File crypto = new File("src/rec/crypto.txt");
+    File loginFile = new File("src/res/login.txt");
+    File crypto = new File("src/res/crypto.txt");
 
-    intro();
+    
 
     System.out.println();
     Users.showLogin(loginFile);
