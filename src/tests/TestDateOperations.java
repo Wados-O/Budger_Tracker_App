@@ -8,6 +8,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -49,4 +50,16 @@ public class TestDateOperations {
 
   }
 
+  @Test
+  public void TestDateBetweenDates() throws ParseException {
+    Date dateBegin = dateFormat.parse("01.01.2023");
+    Date dateEnd = dateFormat.parse("05.01.2023");
+    List<Date> dates = Operations.datesBetween(dateBegin, dateEnd);
+    List<Date> expected = new ArrayList<>();
+    expected.add(dateFormat.parse("01.01.2023"));
+    expected.add(dateFormat.parse("02.01.2023"));
+    expected.add(dateFormat.parse("03.01.2023"));
+    expected.add(dateFormat.parse("04.01.2023"));
+    assertEquals(expected, dates);
+  }
 }
