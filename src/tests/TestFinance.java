@@ -133,4 +133,31 @@ public class TestFinance {
             dateFormat.parse("13.10.2023")));
   }
 
+  @Test
+  public void checkExpensesByDate() throws ParseException {
+    List<Record> records = new ArrayList<>();
+    Record r1 = new Record(1, dateFormat.parse("10.10.2023"),
+        "mama", "Food", "Pizza1", -15.00);
+    Record r2 = new Record(2, dateFormat.parse("11.10.2023"),
+        "papa", "Goods", "Smartphone", -450.00);
+    Record r3 = new Record(3, dateFormat.parse("12.10.2023"),
+        "papa", "Transport", "Ticket to Berlin", -49.00);
+    Record r4 = new Record(4, dateFormat.parse("11.10.2023"),
+        "mama", "Income", "Salary", 1200.00);
+    Record r5 = new Record(1, dateFormat.parse("12.10.2023"),
+        "mama", "Food", "Pizza2", -15.00);
+
+    records.add(r1);
+    records.add(r2);
+    records.add(r3);
+    records.add(r4);
+    records.add(r5);
+
+    assertEquals(-15.00,
+        Operations.expensesByDate(records, dateFormat.parse("10.10.2023")));
+    assertEquals(-450.00,
+        Operations.expensesByDate(records, dateFormat.parse("11.10.2023")));
+    assertEquals(-64.00,
+        Operations.expensesByDate(records, dateFormat.parse("12.10.2023")));
+  }
 }
